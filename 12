@@ -1,0 +1,1494 @@
+/*
+*NOMBRE:Taller No. 1
+*AUTORES:Wadith Enrique Montenegro, Yuri Orfilia Sanchez, Cristhian David Giraldo T. 
+*FECHA:Agosto/21/2017
+*DESCRIPCION:Crear un Menu para el taller en C++ que permita acceder a las opciones de cada punto
+*/
+
+#include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+#include <ctime>
+
+void gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void dibujarRectangulo(int altura, int ancho)
+{
+	int i;
+	//columna
+	for (i = 3; i < altura; i++)
+	{
+		gotoxy(2, i); printf ("\334");
+		gotoxy(ancho, i); printf ("\334");
+	}
+	//fila
+	for (i = 3; i < ancho; i++)
+	{
+		gotoxy(i, 2); printf ("\333");
+		gotoxy(i, altura); printf ("\333");
+	}
+	gotoxy(2, 2); printf ("\333"); //esquina superior izquierda
+	gotoxy(ancho, 2); printf ("\333"); //esquina superior derecha
+	gotoxy(2, altura); printf ("\333"); //esquina inferior derecha
+	gotoxy(ancho, altura); printf ("\333");  //esquina inferior izquierda
+}
+
+void numeros(int arreglo[],int *p_tamano)
+{
+	for(int i = 0;i < *p_tamano;i++)
+	{
+		printf("Ingrese un numero: ");
+		scanf("%d",&arreglo[i]);
+	}
+}
+
+void buscar(int arreglo[], int *p_numero, int *p_tamano)
+{
+	int i;
+	for( i = 0; i < *p_tamano;i++)
+	{
+		if(arreglo[i] == *p_numero)
+		{
+			printf("\nnumero %d encontrado: \n",*p_numero);
+			
+			return;
+		}
+	}
+	printf("\nnumero %d no encontrado \n",*p_numero);
+}
+
+struct Alumno{
+	char nombre[30];
+	int edad;
+	float promedio;
+}alumnos[3], *p_alumnos[3];
+
+struct Tiempo{
+	int hora;
+	int minuto;
+	int segundo;
+}tiempos[3], *p_tiempos[3];
+
+
+int main()
+{
+	system ("color 0A");
+	
+	int opcion = 1, opcion1 = 1, opcion2 = 1, opcion3 = 1, opcion4 = 1, opcion5 = 1, opcion6 = 1;
+	
+	while (opcion != 0)
+	{
+		system("CLS");
+		dibujarRectangulo(22, 76);
+		gotoxy(28, 5); printf ("M E N U");
+		gotoxy(25, 7); printf ("1. Ciclo While");
+		gotoxy(25, 8); printf ("2. Ciclo For");
+		gotoxy(25, 9); printf ("3. Array");
+		gotoxy(25, 10); printf ("4. Switch ");
+		gotoxy(25, 11); printf ("5. Matrices ");
+		gotoxy(25, 12); printf ("6. Estructuras ");
+		gotoxy(25, 13); printf ("0. salir");
+		gotoxy(25, 16); printf ("Seleccione Opcion: ");
+		scanf ("%d", &opcion);
+		switch (opcion)
+		{
+		case 1: { //while
+			
+			while (opcion1 != 4)
+			{
+				
+				system("CLS");
+				dibujarRectangulo(22, 76);
+				gotoxy(28,7);printf ("CICLO WHILE");
+				gotoxy(25,9);printf ("1. suma de numero de 1 a 100: ");
+				gotoxy(25,10);printf("2. suma de numeros pares de 1 al 50: ");
+				gotoxy(25,11);printf("3. suma de numeros impares de 1 al 50: ");
+				gotoxy(25,12);printf("4. REGRESAR AL MENU: ");
+				gotoxy(28,16);printf("Seleccione Opcion: "); 
+				scanf("%d", &opcion1);
+				switch(opcion1)
+				{
+				case 1: 
+				{
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					int num = 1 ;
+					int suma = 0; 
+					
+					while (num <= 100)  //Ciclo para sumar 1 al 100
+					{
+						suma = suma + num;
+						num++;
+					}
+					
+					gotoxy(15,7);
+					printf ("La suma de los 100 primeros numeros es: %d \n", suma);
+					
+					gotoxy(15,9);
+					system("pause");
+					break;
+				}
+				
+				case 2:
+				{
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					int menor = 1;
+					int mayor = 50;
+					int suma =0;
+					
+					while (menor < mayor) 
+					{
+						// averiguamos si el numero es par
+						if (menor %2 == 0) 
+						{
+							suma = suma + menor;
+						}
+						menor = menor + 1;
+					}
+					gotoxy(15,7);
+					printf ("La suma de numeros pares del 1 al 50 es de: %d \n ", suma);
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 3:
+				{   
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					int i;
+					int s;
+					i = 1;
+					s = 0;
+					
+					while (i<=49) //hallamos y sumamos los impares
+					{
+						s = s+i;
+						i = i+2;
+					}
+					
+					gotoxy(15,7);
+					printf ("La suma de los numeros impares del 1 al 50 es de: %d \n" , s); 
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 4:
+				{
+					break;	
+				}
+				} 
+				
+			}
+			break;
+		}	
+		
+		case 2: { //for
+			
+			while(opcion2 != 4)
+			{	
+				
+				system("CLS");
+				dibujarRectangulo(22, 76);
+				gotoxy(27,7);printf ("CICLO FOR");
+				gotoxy(17,9);printf ("1. Tablas de multiplicar de un numero, del 1 al 20: ");
+				gotoxy(17,10);printf("2. Factorial de un numero: ");
+				gotoxy(17,11);printf("3. Numero fibonacci: ");
+				gotoxy(17,12);printf("4. REGRESAR AL MENU: ");
+				gotoxy(20,16);printf("Seleccione Opcion: "); 
+				scanf("%d", &opcion2);
+				switch(opcion2)
+				{
+				case 1: 
+				{
+					system("CLS");
+					
+					int num;
+					int i;
+					int multiplicar;
+					
+					printf("Ingrese el numero a multiplicar:  ");
+					scanf("%d", &num); //puntero
+					
+					for(i = 1; i <= 20; i++)
+					{
+						multiplicar = num * i;//proceso de multiplicacion
+						printf("%d  *  %d  =  %d \n", num ,i, multiplicar );
+					}
+					
+					gotoxy(15,22);
+					system("pause");
+					break;
+				}
+				
+				case 2:
+				{
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					int i;
+					int num=0;
+					int factorial=0;
+					
+					gotoxy(15,6);
+					printf("Ingrese un numero: ");
+					scanf("%d", &num);
+					
+					factorial = num;
+					
+					for(i = num - 1; i >= 1 ; i-- )
+					{
+						factorial = factorial * i;
+					}
+					
+					gotoxy(15,7);
+					printf("El factorial de %d  es %d \n" , num, factorial );
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 3:
+				{   
+					system("CLS");
+					
+					int a,b,c,i;
+					int num;
+					a = 0;
+					b = 1;
+					
+					printf("Ingrese un numero :");
+					scanf("%d", &num);
+					
+					for(i = 0 ; i <= num ; i++)
+					{
+						c = a+b;
+						b = a;
+						a = c;
+						
+						printf("%d \n" , a );
+					}
+					
+					gotoxy(15,9);
+					system("pause");
+					break;
+				}
+				
+				case 4: 
+				{
+					break;
+				}
+				} 
+			}
+			break;
+		}
+		
+		case 3: { //array
+			
+			while(opcion3 != 13)
+			{
+				system("CLS");
+				dibujarRectangulo(22,76);
+				gotoxy(27,3);printf ("PUNTEROS");
+				gotoxy(17,5);printf ("1. comprobar si es par o no: ");
+				gotoxy(17,6);printf ("2. comprobar si primo o no: ");
+				gotoxy(17,7);printf ("3. array de 10 num si es par o no: ");
+				gotoxy(17,8);printf ("4. determinar el menor elemento: ");
+				gotoxy(17,9);printf ("5. mostrar los numeros en orden ascendente: ");
+				gotoxy(17,10);printf("6. funcion para buscar un numero: ");
+				gotoxy(17,11);printf("7. devolver numero de vocales: ");
+				gotoxy(17,12);printf("8. cuantas veces aparece la vocal: ");
+				gotoxy(17,13);printf("9. suma de dos matrices dinamicas: ");
+				gotoxy(17,14);printf("10. matriz transpuesta de NxM: ");
+				gotoxy(17,15);printf("11. mejor promedio de un alumno: ");
+				gotoxy(17,16);printf("12. tiempo empleado por un ciclista: ");
+				gotoxy(17,17);printf("13. REGRESAR AL MENU: ");
+				gotoxy(20,19);printf("Seleccione Opcion: "); 
+				scanf("%d", &opcion3);
+				switch(opcion3)
+				{
+					
+					case 1: 
+					{
+						system("CLS");
+						dibujarRectangulo(22,76);
+						
+						int numero;
+						int *p_numero = &numero;
+						
+						gotoxy(15,5);
+						printf("Ingrese un numero:  ");
+						scanf("%d", &numero);
+						
+						if(numero %2 == 0)
+						{
+							gotoxy(15,7);
+							printf("el numero %d es par \n", *p_numero);
+							gotoxy(15,8);
+							printf("su posicion de memoria es :  0x%x \n", p_numero);
+						}
+						else
+						{
+							gotoxy(15,7);
+							printf("el numero %d es impar \n", *p_numero);
+							gotoxy(15,8);
+							printf("su posicion de memoria es :  0x%x \n", p_numero);
+						}
+						
+						gotoxy(15,10);
+						system("pause");
+						break;
+					}
+					
+					case 2:
+					{
+						system("CLS");
+						dibujarRectangulo(22,76);
+						
+						int i;
+						int contador = 0;
+						int numero;
+						int *p_numero = &numero;
+						
+						gotoxy(15,5);
+						printf("Ingrese un numero:  ");
+						scanf("%d", &numero);
+						
+						
+						for(i = 2; i < *p_numero/2; i++)
+						{
+							if(*p_numero %i == 0)
+							{
+								contador++;
+								
+							}
+						}
+						
+						
+						if(contador == 0)
+						{
+							gotoxy(15,7);
+							printf("el numero %d es primo \n", *p_numero);
+							gotoxy(15,8);
+							printf("su posicion de memoria es :  0x%x \n", p_numero);
+						}
+						else
+						{
+							gotoxy(15,7);
+							printf("el numero %d no es primo \n", *p_numero);
+							gotoxy(15,8);
+							printf("su posicion de memoria es :  0x%x \n", p_numero);
+						}
+						
+						gotoxy(15,10);
+						system("pause");
+						break;	
+					}
+					
+					case 3:
+					{   
+						system("CLS");
+						
+						int i;
+						int numeros[10];   
+						int *p_numeros = &numeros[0];
+						
+						for(i = 0; i < 10; i++)
+						{
+							printf("ingrese un numero %d: ",i);
+							scanf("%d", &numeros[i]);
+						}
+						
+						
+						
+						for(i = 0; i < 10; i++)
+						{
+							if(*p_numeros %2 == 0)
+							{
+								printf("el numero %d es par \n",*p_numeros);
+								printf("posicion 0x%x \n", p_numeros);
+							}
+							p_numeros++;
+						}
+						
+						gotoxy(15,21);
+						system("pause");
+						break;	
+					}
+					
+					case 4:
+					{   
+						system("CLS");
+						
+						int i;
+						int numero;
+						int numerito[100];
+						int *p_numerito = &numerito[0];
+						int menor = numerito[0];
+						int pos = 0;
+						
+						printf("ingrese cuantos numeros quiere ingresar:   ");
+						scanf("%d", &numero);
+						
+						for(i = 0; i < numero; i ++)
+						{
+							printf("ingrese numero:  ");
+							scanf("%d", &numerito[i]);
+						}
+						
+						
+						for(i = 0; i < numero; i ++)
+						{
+							if(*p_numerito < menor){
+								
+								menor = *p_numerito;
+								pos = i;
+							}
+						}
+						
+						printf("el menor de los elementos es: %d \n\n", menor);
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 5:
+					{   
+						system("CLS");
+						
+						int i,j;
+						int lon; 
+						int Temp; 
+						int arreglo[100]; 
+						int *p_arreglo = &arreglo[0];
+						
+						
+						printf("Ingresa el numero de numeros a capturar: "); 
+						scanf("%d",&lon); 
+						
+						for(i = 0;i < lon; i++)
+						{ 
+							printf("Ingresa el numero: "); 
+							scanf("%d", arreglo+i); 
+						} 
+						
+						for(i = 0;i < lon; i++) 
+						{		 
+							for(j = 0;j < lon - 1; j++) 
+							{
+								
+								if(*(p_arreglo + j) > *(arreglo + j + 1 ))
+								{
+									Temp = *(p_arreglo + j); 
+									*(p_arreglo + j ) = *(p_arreglo + j + 1); 
+									*(p_arreglo + j + 1 ) = Temp;
+								} 
+							}
+						}
+						
+						
+						printf("\nNumeros ordenados: \n");     
+						for(i = 0;i < lon ; i++) 
+						{
+							printf("%d\n",*p_arreglo++); 
+						} 
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 6:
+					{   
+						system("CLS");
+						
+						int numero;
+						int num;
+						int arreglo[100];
+						int *p_arreglo = &arreglo[0];
+						
+						printf("Cuantos numero desea ingresar: ");
+						scanf("%d", &num);
+						
+						numeros(arreglo,&num);
+						
+						printf("\nCual numero desea buscar: ");
+						scanf("%d", &numero);
+						
+						buscar(arreglo,&numero,&num);
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 7:
+					{   
+						system("CLS");
+						
+						int i;
+						char vA[30];
+						char *p_vA = &vA[0];
+						int contadorVocales = 0;
+						
+						printf("ingrese el contenido de la variable \n") ;
+						scanf("%s",p_vA, 30);
+						
+						for (i = 0;i < 30;i++)
+						{
+							if (*(p_vA+i) == '\0')
+							{
+								break;
+							}
+							else
+							{
+								switch (*(p_vA +i))
+								{
+								case 'a':
+								case 'A':
+								case 'e':
+								case 'E':
+								case 'i':
+								case 'I':
+								case 'o':
+								case 'O':
+								case 'u':
+								case 'U':
+									contadorVocales++;
+									break;
+								}
+							}
+						}
+						
+						// Imprimiendo el dato
+						printf("Hay %d vocales \n", contadorVocales);
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 8:
+					{   
+						system("CLS");
+						
+						char vA[30];
+						char *p_vA = &vA[0];
+						int i;
+						int tamano = 0;
+						int contadorA=0;
+						int contadorE=0;
+						int contadorI=0;
+						int contadorO=0;
+						int contadorU=0;
+						
+						printf("ingrese el contenido de la variable \n") ;
+						scanf("%s",p_vA, 30);
+						
+						for (i=0;i<30;i++)
+						{
+							if (*(p_vA+i) == '\0')
+							{
+								tamano = i;
+								break;
+							}
+							else
+							{
+								switch (*(p_vA+i))
+								{
+								case 'a':
+									contadorA++;
+									break;
+									
+								case 'e':
+									contadorE++;
+									break;
+									
+								case 'i':
+									contadorI++;
+									break;
+									
+								case 'o':
+									contadorO++;
+									break;	
+									
+								case 'u':
+									contadorU++;
+									break;
+								}
+							}
+						}
+						
+						// Imprimiendo el dato
+						printf("la vocal (a) aparace %d veces \n", contadorA);
+						printf("la vocal (e) aparace %d veces \n", contadorE);
+						printf("la vocal (i) aparace %d veces \n", contadorI);
+						printf("la vocal (o) aparace %d veces \n", contadorO);
+						printf("la vocal (u) aparace %d veces \n", contadorU);
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 9:
+					{   
+						system("CLS");
+						
+						int fila, columa;
+						int i = 0;
+						int j = 0;
+						
+						int matrizA[100][100];
+						int *p_matrizA = &matrizA[0][0];
+						int matrizB[100][100];
+						int *p_matrizB = &matrizB[0][0];
+						int matrizC[100][100];
+						int *p_matrizC = &matrizC[0][0];
+						
+						
+						printf("ingrese el numero de filas: ");
+						scanf("%d", &fila);
+						
+						printf("ingrese el numero de columnas: ");
+						scanf("%d", &columa);
+						
+						printf("Escriba los valores para la matriz A: \n");
+						
+						for (i = 0; i < fila; i++)
+						{
+							for (j = 0; j < columa; j++)
+							{
+								printf("Escriba el valor para la matrizA [%d][%d]:  ",i , j);
+								scanf("%d", p_matrizA + (i*100)+j);
+							}
+						}
+						
+						printf ("\n\nEscriba los valores para la matriz B:\n");
+						
+						for (i = 0; i < fila; i++)
+						{
+							for (j = 0; j < columa; j++)
+							{
+								printf("Escriba el valor para la matrizB [%d][%d]:  ", i , j);
+								scanf("%d",p_matrizB + (i*100)+ j);
+							}
+						}
+						
+						printf("\nMatriz A: \n");
+						for (i = 0; i < fila; i++)
+						{
+							for (j = 0; j < columa; j++)
+							{
+								printf("%d   ", (*(p_matrizA + (i*100)+j )));
+							}
+							
+							printf("\n");
+						}
+						
+						printf ("\nMatriz B:\n");
+						for (i = 0; i < fila; i++)
+						{
+							for (j = 0; j < columa; j++)
+							{
+								printf("%d   ",(*(p_matrizB + (i*100)+ j)));
+							}
+							
+							printf("\n");
+						}
+						
+						int total = 0;
+						printf("\nLa suma de la matriz A y B es: \n");
+						for (i = 0; i < fila; i++)
+						{
+							for (j = 0; j < columa; j++)
+							{
+								total = (*(p_matrizA + (i*100)+j )) + (*(p_matrizB + (i*100)+ j));
+								printf("%d   ", total);
+							}
+							
+							printf("\n");
+						}
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 10:
+					{   
+						system("CLS");
+						
+						int i , j;
+						int fila, columa;
+						int matriz[100][100];
+						int *p_matriz = &matriz[0][0];
+						
+						printf("ingrese el numero de filas: ");
+						scanf("%d", &fila);
+						
+						printf("ingrese el numero de columnas: ");
+						scanf("%d", &columa);
+						
+						for (i = 0; i < fila; i++)
+						{
+							for (j = 0; j < columa; j++)
+							{
+								printf("Escriba el valor para la matriz [%d][%d]:   ",i , j);
+								scanf("%d", &matriz[i][j]);
+							}
+						}
+						
+						//imprimir matrices
+						
+						printf("\nMatriz original\n");
+						
+						for(i = 0; i < fila; i++)
+						{
+							for(j = 0; j < columa; j++)
+							{
+								printf("%d   ",*(p_matriz + (i * 100)+ j));
+							}
+							printf("\n");
+						}
+						
+						printf("\nMatriz transpuesta\n");
+						
+						for(i = 0; i < fila; i++)
+						{
+							for(j = 0; j < columa; j++)
+							{
+								printf("%d   ",*(p_matriz  + (j * 100)+ i));
+							}
+							printf("\n");
+						}
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 11:
+					{   
+						system("CLS");
+						
+						float nota1, nota2, nota3;
+						int promMayor = 0;
+						float mayor=0;
+						
+						
+						for(int i = 0;i < 3; i++)
+						{
+							p_alumnos[i] = &alumnos[i];
+							fflush(stdin);
+							printf("\nIngrese Nombre: ");
+							fgets(p_alumnos[i]->nombre,30,stdin);
+							printf("\nIngrese edad: ");
+							scanf("%d",&(p_alumnos[i]->edad));
+							
+							printf("---Notas del Examen----\n");
+							printf("\nNota1: ");
+							scanf("%f",&nota1 );
+							printf("\nNota2: ");
+							scanf("%f",&nota2);
+							printf("\nNota3: ");
+							scanf("%f",&nota3);
+							
+							p_alumnos[i]->promedio = (nota1+nota2+nota3)/3;
+							
+							if(p_alumnos[i] -> promedio > mayor)
+							{
+								mayor = p_alumnos[i]->promedio;
+								promMayor = i;
+								
+							}
+							
+						}
+						printf("\n---Los Datos del mejor Promedio es: ---");
+						printf("\nNombre: %s ",p_alumnos[promMayor]->nombre);
+						printf("\nEdad: %d ",p_alumnos[promMayor]->edad);
+						printf("\nPromedio: %0.2f\n",p_alumnos[promMayor]->promedio);
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+					
+					case 12:
+					{   
+						system("CLS");
+						
+						int i;
+						int hora = 3600;
+						int minuto = 60;
+						int tiempo_total = 0;
+						long total_hora = 0;
+						long total_minuto = 0;
+						long total_segundo = 0;
+						int residuo = 0;
+						
+						for(i = 0; i < 3; i++)
+						{
+							p_tiempos[i] = &tiempos[i];
+							fflush(stdin);
+							printf("\nIngrese la hora, minutos y segundos a la etapa:  %d\n",i);
+							printf("Horas: ");
+							scanf("%d",&(p_tiempos[i]->hora));
+							printf("Minutos: ");
+							scanf("%d",&(p_tiempos[i]->minuto));
+							printf("Segundos: ");
+							scanf("%d",&(p_tiempos[i]->segundo));
+							
+							
+							tiempo_total = tiempo_total + (p_tiempos[i]->hora * hora)+(p_tiempos[i]->minuto * minuto) + (p_tiempos[i]->segundo);
+						}
+						
+						total_hora = tiempo_total / hora;
+						residuo = tiempo_total % hora;
+						
+						total_minuto = residuo / minuto;
+						total_segundo = residuo % minuto;
+						
+						printf("\nEl tiempo total recorrido es: \n");
+						printf("%ld horas %ld minutos %ld segundos \n\n",total_hora, total_minuto, total_segundo);
+						
+						gotoxy(15,15);
+						system("pause");
+						break;	
+					}
+				} 
+			}
+			break;
+		}
+		
+		case 4: { //switch	
+			
+			while(opcion4 != 4)
+			{
+				system("CLS");
+				dibujarRectangulo(22,76);
+				gotoxy(27,7);printf ("SWITCH");
+				gotoxy(17,9);printf ("1. consulta de mes en español : ");
+				gotoxy(17,10);printf("2. devolver codigo ascii de una vocal: ");
+				gotoxy(17,11);printf("3. devolver codigo ascii de un numero: ");
+				gotoxy(17,12);printf("4. REGRESAR AL MENU: ");
+				gotoxy(20,16);printf("Seleccione Opcion: "); 
+				scanf("%d", &opcion4);
+				
+				switch(opcion4)
+				{
+				case 1: 
+				{
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					int mes;
+					
+					time_t hora = time(0);
+					
+					gotoxy(15,7);
+					printf("Segun el sistema estamos en el mes de: ");
+					tm *ltm =localtime(&hora);
+					
+					mes=1+ltm->tm_mon;
+					
+					switch (mes)
+					{
+					case 1:
+						printf("ENERO");
+						break;
+					case 2:
+						printf("FEBRERO");
+						break;
+					case 3:
+						printf("MARZO");
+						break;
+					case 4:
+						printf("ABRIL");
+						break;
+					case 5:
+						printf("MAYO");
+						break;
+					case 6:
+						printf("JUNIO");
+						break;
+					case 7:
+						printf("JULIO");
+						break;
+					case 8:
+						printf("AGOSTO");
+						break;
+					case 9:
+						printf("SEPTIEMBRE");
+						break;
+					case 10:
+						printf("OCTUBRE");
+						break;
+					case 11:
+						printf("NOVIEMBRE");
+						break;
+					case 12:
+						printf("DICIEMBRE");
+						break;
+						
+					}
+					
+					printf("\n\n");
+					
+					gotoxy(15,9);
+					system("pause");
+					break;
+				}
+				
+				case 2:
+				{
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					char vocal;
+					
+					gotoxy(15,6);
+					printf("Ingrese una vocal en minuscula o mayuscula: ");
+					scanf("%s", &vocal);
+					
+					switch (vocal)
+					{
+					case 'a':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",97);
+						break;
+					case 'A':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",65);
+						break;
+					case 'e':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",101);
+						break;
+					case 'E':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",69);
+						break;
+					case 'i':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",105);
+						break;
+					case 'I':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",73);
+						break;
+					case 'o':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",111);
+						break;
+					case 'O':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",79);
+						break;
+					case 'u':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",117);
+						break;
+					case 'U':
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",85);
+						break;
+					}
+					printf("\n\n");	
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 3:
+				{   
+					system("CLS");
+					dibujarRectangulo(22,76);
+					
+					int numero;
+					
+					gotoxy(15,6);
+					printf("Ingrese un numero de 0 a 9: ");
+					scanf("%d", &numero);
+					
+					switch (numero)
+					{
+					case 0:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",48);
+						break;
+					case 1:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",49);
+						break;
+					case 2:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",50);
+						break;
+					case 3:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",51);
+						break;
+					case 4:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",52);
+						break;
+					case 5:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",53);
+						break;
+					case 6:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",54);
+						break;
+					case 7:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",55);
+						break;
+					case 8:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",56);
+						break;
+					case 9:
+						gotoxy(15,7);
+						printf("codigo ascii %d  ",57);
+						break;
+					}
+					printf("\n\n");	
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 4: 
+				{
+					break;
+				}
+				} 
+			}	
+			break;
+		}
+		
+		
+		case 5: {//matrices
+			
+			while(opcion5 != 4)
+			{
+				system("CLS");
+				dibujarRectangulo(22,76);
+				gotoxy(27,7);printf ("MATRICES");
+				gotoxy(17,9);printf ("1. Matriz de 3X3  e imprimir la suma de sus posiciones: ");
+				gotoxy(17,10);printf("2. Matriz de 3X3 llenarla por el Sistema: ");
+				gotoxy(17,11);printf("3. Matriz de 3X3 llenarla el Sistem con Numeros Primos: ");
+				gotoxy(17,12);printf("4. REGRESAR AL MENU: ");
+				gotoxy(20,16);printf("Seleccione Opcion: "); 
+				scanf("%d", &opcion5);
+				switch(opcion5)
+				{
+				case 1: 
+				{
+					
+					system("CLS");
+					
+					int matriz[3][3];
+					int i,j;
+					int suma=0;
+					
+					/*Bucle que registra los numeros introducidos de teclado*/
+					for(i = 0; i < 3; i++)
+					{     
+						for(j = 0;j < 3; j++)
+						{
+							printf("Introduce un numero para la posicion %d,%d: ",i ,j);
+							scanf("%d",&matriz[i][j]);
+						}
+					}
+					
+					for(i = 0; i < 3; i++)
+					{
+						for(j = 0; j < 3; j++)
+						{
+							suma = suma + matriz[i][j];
+						}
+					}
+					
+					
+					for(i = 0; i < 3; i++ )
+					{
+						for(j = 0; j < 3; j++)
+						{
+							printf("%d    ",matriz[i][j]);
+							
+						}
+						printf("\n");
+					}
+					
+					printf("la suma de las posiciones es:  %d \n\n", suma);
+					
+					gotoxy(15,17);
+					system("pause");
+					break;
+				}
+				
+				
+				case 2:
+				{
+					system("CLS");
+					
+					int i, j;
+					int matrizA[3][3];
+					int matrizB[3][3];
+					
+					for(i = 0; i < 3; i++)
+					{
+						for(j = 0; j < 3; j++)
+						{
+							matrizA[i][j] = i+j; 
+						}
+					}
+					
+					for(i = 0; i < 3; i++)
+					{
+						for(j = 0; j < 3; j++)
+						{
+							matrizB[i][j] = matrizA[i][j];
+						}
+					}
+					
+					for(i = 0; i < 3; i++)
+					{
+						for(j = 0; j < 3; j++)
+						{
+							printf("%d   ",matrizB[i][j]);
+						}
+						printf("\n");
+					}
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 3:
+				{   
+					system("CLS");
+					
+					int i, j;
+					int matrizA[3][3];
+					int vector[5] = {2,3,5,7,11};
+					
+					for(i = 0; i < 3; i++)
+					{
+						for(j = 0; j < 3; j++)
+						{
+							
+							matrizA[i][j] = vector[(i+j)%5];
+						}
+					}
+					
+					for(i = 0; i < 3; i++)
+					{
+						for(j = 0; j < 3; j++)
+						{
+							printf("%d   ",matrizA[i][j]);
+						}
+						printf("\n");
+					}
+					
+					gotoxy(15,9);
+					system("pause");
+					break;	
+				}
+				
+				case 4:
+				{
+					break;
+				}
+				} 
+			}
+			break;
+		}
+		
+		
+		case 6: {//estructuras
+			
+			while(opcion6 != 5)
+			{
+				system("CLS");
+				dibujarRectangulo(22,76);
+				gotoxy(27,7);printf ("ESTRUCTURAS");
+				gotoxy(17,9);printf ("1. Nombre - Notas y Promedio de Alumnos : ");
+				gotoxy(17,10);printf("2. Estructura Competidor: ");
+				gotoxy(17,11);printf("3. Estructura Promedio: ");
+				gotoxy(17,12);printf("4. Promedio Menor y Mayor de los alumnos: ");
+				gotoxy(17,13);printf("5. REGRESAR AL MENU: ");
+				gotoxy(20,16);printf("Seleccione Opcion: ");
+				scanf("%d", &opcion6);
+				switch(opcion6)
+				{
+				case 1:
+				{
+					system("CLS");
+					
+					Alumno2 temporal;
+					
+					int n_alumno;
+					
+					float promedio_siguiente_alumno = 0;
+					float promedio_alumno_actual = 0;
+					int i,j;
+					float promedio;
+					
+					printf("Ingrese Numero de alumnos: ");
+					scanf("%d",&n_alumno);
+					
+					for( i = 0;i < n_alumno; i++)
+					{
+						
+						fflush(stdin);
+						printf("\nIngrese Nombre: ");
+						fgets(alumno[i].nombre,30,stdin);
+						
+						printf("---Notas del Examen----\n");
+						printf("\nNota1: ");
+						scanf("%f", &alumno[i].prom.nota1);
+						printf("\nNota2: ");
+						scanf("%f", &alumno[i].prom.nota2);
+						printf("\nNota3: ");
+						scanf("%f", &alumno[i].prom.nota3);
+						
+					}
+					
+					
+					// Utilizando algoritmo burbuja para ordenar
+					for( i = 1; i < n_alumno; i++)
+					{
+						for( j = 0; j < n_alumno - 1; j++)
+						{
+							
+							promedio_siguiente_alumno = (alumno[j + 1].prom.nota1+alumno[j+1].prom.nota2+alumno[j+1].prom.nota3)/3;
+							
+							promedio_alumno_actual = (alumno [j].prom.nota1+alumno[j].prom.nota2+alumno[j].prom.nota3)/3;
+							
+							// Ordenando de mayor a menos segun el promedio
+							if(promedio_siguiente_alumno > promedio_alumno_actual)
+							{
+								// Hacemos el intercambio
+								// Pasando el alumno que esta siguiente y lo movemos al actual
+								// y viceversa
+								temporal = alumno[j];
+								alumno[j] = alumno[j + 1];
+								alumno[j + 1] = temporal;                      
+							}
+						}
+					}
+					
+					//IMPRIMIMOS
+					printf("\n Alumnos ordenados segun su promedio de notas\n");
+					for(i = 0; i < n_alumno; i++)
+					{
+						promedio = (alumno[i].prom.nota1+alumno[i].prom.nota2+alumno[i].prom.nota3)/3;
+						printf("\nNombre: %s", alumno[i].nombre);
+						printf("Su promedio es %0.1f \n", promedio);
+					}
+					
+					system("pause");
+					break;
+				}
+				
+				case 2:
+				{
+					system("CLS");
+					fflush(stdin);
+					
+					printf("---Ingrese datos del Participante---");
+					printf("\nIngrese Nombre: ");
+					fgets(competidor1.nombre,20,stdin);
+					
+					printf("\nIngrese Edad: ");
+					scanf("%d", &competidor1.edad);
+					
+					printf("\nIngrese m => masculino o f => femenino: ");
+					scanf("%s", &competidor1.sexo);
+					
+					printf("\nIngrese Nombre del Club: ");
+					fgets(competidor1.club,20,stdin);
+					
+					printf("\n--DATOS DEL PARTICIPANTE--\n");
+					printf("\nNombre: %s",competidor1.nombre);
+					printf("\nEdad: %d",competidor1.edad);
+					printf("\nSexo: %c",competidor1.sexo);
+					printf("\nClub: %s",competidor1.club);
+					printf("\nCategoria:");
+					
+					if(competidor1.edad <= 15)
+					{
+						printf("Infantil");
+					}
+					else
+					   if(competidor1.edad <= 40)
+					{
+						printf("Joven");
+					}
+					   else
+					   {
+						   printf("Mayor");
+					   }
+					   
+					   system("pause");
+					   break;
+				}
+				
+				case 3:
+				{  
+					system("CLS");
+					
+					int promMayor = 0;
+					float promedio_alumno[100],mayor=0;
+					
+					
+					for(int i = 0;i < 1; i++)
+					{
+						fflush(stdin);
+						printf("\nIngrese Nombre: ");
+						fgets(alumno[i].nombre,30,stdin);
+						printf("\nIngrese m => masculino o f => femenino: ");
+						scanf("%c", &alumno[i].sexo);
+						printf("\nIngrese edad: ");
+						scanf("%d", &alumno[i].edad);
+						
+						printf("---Notas del Examen----\n");
+						printf("\nNota1: ");
+						scanf("%f", &alumno[i].prom.nota1);
+						printf("\nNota2: ");
+						scanf("%f", &alumno[i].prom.nota2);
+						printf("\nNota3: ");
+						scanf("%f", &alumno[i].prom.nota3);
+						
+						promedio_alumno[i] = (alumno[i].prom.nota1+alumno[i].prom.nota2+alumno[i].prom.nota3)/3;
+						
+						if(promedio_alumno[i] > mayor)
+						{
+							mayor = promedio_alumno[i];
+							promMayor = i;
+							
+						}
+						
+					}
+					printf("\n---Sus Datos y su Promedio es---");
+					printf("\nNombre: %s ",alumno[promMayor].nombre);
+					printf("\nSexo: %c ",alumno[promMayor].sexo);
+					printf("\nEdad: %d ",alumno[promMayor].edad);
+					printf("\nPromedio: %0.2f\n",promedio_alumno[promMayor]);
+					
+					system("pause");
+					break;
+				}
+				
+				case 4:
+				{
+					system("CLS");
+					
+					float menor = 5;
+					float mayor = 0;
+					int promMenor = 0;
+					int n_alumno,promMayor = 0;
+					float promedio_alumno[100];
+					
+					printf("Ingrese Numero de alumnos: ");
+					scanf("%d",&n_alumno);
+					
+					for(int i = 0;i < n_alumno; i++)
+					{
+						fflush(stdin);
+						printf("\nIngrese Nombre: ");
+						fgets(alumno[i].nombre,30,stdin);
+						printf("\nIngrese m => masculino o f => femenino: ");
+						scanf("%c", &alumno[i].sexo);
+						printf("\nIngrese edad: ");
+						scanf("%d", &alumno[i].edad);
+						
+						printf("---Notas del Examen----\n");
+						printf("\nNota1: ");
+						scanf("%f", &alumno[i].prom.nota1);
+						printf("\nNota2: ");
+						scanf("%f", &alumno[i].prom.nota2);
+						printf("\nNota3: ");
+						scanf("%f", &alumno[i].prom.nota3);
+						
+						promedio_alumno[i] = (alumno[i].prom.nota1+alumno[i].prom.nota2+alumno[i].prom.nota3)/3;
+						
+						if(promedio_alumno[i] > mayor)
+						{
+							mayor = promedio_alumno[i];
+							promMayor = i;
+							
+						}
+						else
+						   if(promedio_alumno[i] < menor)
+						{
+							menor = promedio_alumno[i];
+							promMenor = i;
+						}
+					}
+					printf("\n---El Alumno con Mejor Promedio es---");
+					printf("\nNombre: %s ",alumno[promMayor].nombre);
+					printf("\nSexo: %c ",alumno[promMayor].sexo);
+					printf("\nEdad: %d ",alumno[promMayor].edad);
+					printf("\nPromedio: %0.2f\n",promedio_alumno[promMayor]);
+					
+					printf("\n---El Alumno con Menor Promedio es---");
+					printf("\nNombre: %s ",alumno[promMenor].nombre);
+					printf("\nSexo: %c ",alumno[promMenor].sexo);
+					printf("\nEdad: %d ",alumno[promMenor].edad);
+					printf("\nPromedio: %0.2f\n",promedio_alumno[promMenor]);
+					
+					system("pause");
+					break;
+				}
+				
+				case 5: 
+				{
+					break;
+				}
+				}
+			}  
+			break;
+		}
+		
+		case 0: {
+			system("CLS");
+			dibujarRectangulo(22, 76);
+			gotoxy(33, 7); printf ("SALIR");
+			break;
+		}
+		
+		default:{
+			system("CLS");
+			dibujarRectangulo(22, 76);
+			gotoxy(28, 7); printf ("Opcion no valida");
+			
+			getch();
+			break;
+		}
+		}
+	}
+	return 0;
+}
